@@ -14,7 +14,9 @@ class DatabaseService {
   async init() {
     if (this.db) return
 
-    this.sqlModule = await initSqlJs()
+    this.sqlModule = await initSqlJs({
+      locateFile: (file: string) => `https://sql.js.org/dist/${file}`
+    })
 
     // TODO: IndexedDBやlocalStorageを使用して永続化する
     this.db = new this.sqlModule.Database()
